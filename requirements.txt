@@ -1,6 +1,17 @@
+# client app
+Kivy==2.1.0
+kivymd==0.104.2
+
+# compression
 lz4==4.0.1
+
+# capture
 mss==6.1.0
 numpy==1.23.0
 Pillow==9.1.1
 pygame==2.1.2
 git+https://github.com/ra1nty/DXcam#egg=dxcam
+
+# control and input
+pyautogui==0.9.53  # can be used to control mouse and keyboard on server
+# https://pyautogui.readthedocs.io/en/latest/index.html
