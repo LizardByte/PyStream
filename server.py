@@ -3,11 +3,11 @@ from socket import socket
 from threading import Thread
 import platform
 import time
+from turtle import back
 
 # lib imports
 from lz4.frame import compress
 from mss import mss
-import numpy as np
 from PIL import ImageGrab
 from vidgear.gears import ScreenGear
 import cv2
@@ -27,7 +27,7 @@ monitor = {
 }
 
 # Initialize ScreenGear
-stream = ScreenGear(**monitor)
+stream = ScreenGear(**monitor, backend="mss")
 stream.color_space = cv2.COLOR_BGR2RGB
 stream.start()
 
@@ -41,16 +41,17 @@ def retrieve_screenshot(conn):
 
         # Capture the screen
         frame = stream.read()
-        frame = np.array(frame).tobytes()
         if frame is None:
             break
 
         # Tweak the compression level here (0-9)
-        pixels = compress(frame, 2)
+        pixels = compress(frame, 0)
 
         # Send the size of the pixels length
         size = len(pixels)
         size_len = (size.bit_length() + 7) // 8
+
+        # Sending through sockets
         try:
             conn.send(bytes([size_len]))
 

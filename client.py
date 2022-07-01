@@ -12,6 +12,7 @@ import cv2
 display = 0
 
 
+
 def recv_all(conn, length):
     """ Retrieve all pixels. """
 
@@ -34,7 +35,7 @@ def main(host='127.0.0.1', port=5000):
     dimension = (int(dimension[0]), int(dimension[1]))
     print(f"Stream dimension: {dimension[0]}x{dimension[1]}")
 
-    
+    # Initialization for FPS counter
     prevFrameTime = 0
     font = cv2.FONT_HERSHEY_SIMPLEX
     while True:
@@ -51,7 +52,6 @@ def main(host='127.0.0.1', port=5000):
         # Display the picture
         frame = np.frombuffer(pixels, dtype=np.uint8)
         frame = np.reshape(frame, (dimension[1], dimension[0], 3))
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         # Resize image
         frame = cv2.resize(frame, (1280, 720), interpolation=cv2.INTER_AREA)
@@ -59,9 +59,7 @@ def main(host='127.0.0.1', port=5000):
         # Display FPS
         cv2.putText(frame, str(int(fps)), (5, 30), font, 1, (255, 255, 0), 3, cv2.LINE_AA)
 
-        
-        
-        # Output  to CV2q
+        # Output  to CV2
         cv2.imshow("Output Frame", frame)
 
         # Check for 'q' key if pressed
@@ -69,7 +67,7 @@ def main(host='127.0.0.1', port=5000):
         if key == ord("q"):
             break
 
-    #close connection
+    # Close connection
     sock.close()
     cv2.destroyAllWindows
 
