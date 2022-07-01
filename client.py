@@ -1,5 +1,4 @@
 # standard imports
-from pickle import FRAME
 from socket import socket
 import numpy as np
 import time

@@ -1,14 +1,11 @@
 # standard imports
 from socket import socket
 from threading import Thread
-import platform
 import time
-from turtle import back
 
 # lib imports
 from lz4.frame import compress
 from mss import mss
-from PIL import ImageGrab
 from vidgear.gears import ScreenGear
 import cv2
 
