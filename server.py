@@ -15,31 +15,29 @@ import cv2
 fallback = 'mss'
 monitor_number = 0
 
-#Initialize ScreenGear
+# Monitor setup
+sct = mss()
+mon = sct.monitors[monitor_number]
+monitor = {
+    'top': mon["top"],
+    'left': mon["left"],
+    'width': mon['width'],
+    'height': mon['height'],
+    'mon': monitor_number
+}
+
+# Initialize ScreenGear
+stream = ScreenGear(**monitor)
+stream.color_space = cv2.COLOR_BGR2RGB
+stream.start()
 
 def retrieve_screenshot(conn):
-    # Monitor setup
-    sct = mss()
-    mon = sct.monitors[monitor_number]
-    monitor = {
-        'top': mon["top"],
-        'left': mon["left"],
-        'width': mon['width'],
-        'height': mon['height'],
-        'mon': monitor_number
-    }
-
+    
     # Send Dimension of Stream
     conn.sendall(bytes(f'{monitor["width"]}x{monitor["height"]}', encoding='utf8'))
-    
 
-    # Initialize ScreenGear
-    stream = ScreenGear(**monitor)
-    stream.color_space = cv2.COLOR_BGR2RGB
-    stream.start()
-    
     while True:
-        #last_time = time.perf_counter()
+        last_time = time.perf_counter()
 
         # Capture the screen
         frame = stream.read()
@@ -67,17 +65,17 @@ def retrieve_screenshot(conn):
             break
 
         # print fps to terminal
-        #print(f"{1 / (time.perf_counter() - last_time)}")
+        print(f"{1 / (time.perf_counter() - last_time)}")
     
     #Stop screen capture
     stream.stop()
 
 def main(host='0.0.0.0', port=5000):
-
     
     # Connection
     sock = socket()
     sock.bind((host, port))
+    
     try:
         sock.listen(5)
         print('Server started.')
@@ -85,10 +83,11 @@ def main(host='0.0.0.0', port=5000):
         while True:
             conn, addr = sock.accept()
             print('Client connected IP:', addr)
-
-
+            
             thread = Thread(target=retrieve_screenshot, args=(conn,))
             thread.start()
+
+            
     finally:
         sock.close()
 

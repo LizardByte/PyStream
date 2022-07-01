@@ -11,10 +11,6 @@ import cv2
 # this display to show on
 display = 0
 
-# todo - allow different resolution than server output
-WIDTH = 1920
-HEIGHT = 1080
-
 
 def recv_all(conn, length):
     """ Retrieve all pixels. """
