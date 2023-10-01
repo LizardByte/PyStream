@@ -10,6 +10,7 @@ updates:
     schedule:
       interval: "daily"
       time: "08:00"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "github-actions"
@@ -17,6 +18,7 @@ updates:
     schedule:
       interval: "daily"
       time: "08:30"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "npm"
@@ -24,6 +26,7 @@ updates:
     schedule:
       interval: "daily"
       time: "09:00"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "nuget"
@@ -31,6 +34,7 @@ updates:
     schedule:
       interval: "daily"
       time: "09:30"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "pip"
@@ -38,6 +42,7 @@ updates:
     schedule:
       interval: "daily"
       time: "10:00"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
 
   - package-ecosystem: "gitsubmodule"
@@ -45,4 +50,5 @@ updates:
     schedule:
       interval: "daily"
       time: "10:30"
+    target-branch: "nightly"
     open-pull-requests-limit: 10
